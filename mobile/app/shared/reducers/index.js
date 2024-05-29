@@ -9,9 +9,6 @@ import ReduxPersist from '../../config/redux-persist';
 export const reducers = combineReducers({
   appState: require('./app-state.reducer').reducer,
   users: require('./user.reducer').reducer,
-  albums: require('../../modules/entities/album/album.reducer').reducer,
-  photos: require('../../modules/entities/photo/photo.reducer').reducer,
-  tags: require('../../modules/entities/tag/tag.reducer').reducer,
   // jhipster-react-native-redux-store-import-needle
   authInfo: require('./auth-info.reducer').reducer,
   account: require('./account.reducer').reducer,

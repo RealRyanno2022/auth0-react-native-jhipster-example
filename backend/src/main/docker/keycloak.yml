@@ -1,28 +1,51 @@
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+# This configuration is intended for development purposes. It's **your** responsibility to harden it for production.
 version: '3.8'
+
 services:
   keycloak:
-    image: jboss/keycloak:15.0.2
+    image: quay.io/keycloak/keycloak:22.0.1
     command:
       [
-        '-b',
-        '0.0.0.0',
-        '-Dkeycloak.migration.action=import',
-        '-Dkeycloak.migration.provider=dir',
-        '-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config',
-        '-Dkeycloak.migration.strategy=OVERWRITE_EXISTING',
-        '-Djboss.socket.binding.port-offset=1000',
-        '-Dkeycloak.profile.feature.upload_scripts=enabled',
+        'start-dev',
+        '--hostname-strict=false',
+        '--http-relative-path=/auth',
+        '--import-realm',
+        '--db=dev-mem',
+        '--log-level=DEBUG'
       ]
     volumes:
-      - ./realm-config:/opt/jboss/keycloak/realm-config
+      - ./realm-config:/opt/keycloak/data/import
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - DB_VENDOR=h2
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:9080:9080
-      - 127.0.0.1:9443:9443
-      - 127.0.0.1:10990:10990
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:8443:8443
+
+    # Uncomment the following section and configure as needed for a production database
+    # environment:
+    #   - DB_VENDOR=postgres
+    #   - DB_ADDR=your-postgres-host
+    #   - DB_DATABASE=your-database-name
+    #   - DB_USER=your-database-user
+    #   - DB_PASSWORD=your-database-password
+    #   - KEYCLOAK_USER=admin
+    #   - KEYCLOAK_PASSWORD=your-secure-password
+
+    # Uncomment and configure the following volumes and environment variables for secure database connections
+    # volumes:
+    #   - ./certs:/opt/keycloak/conf/certs
+    #   - ./keycloak-data:/opt/keycloak/data
+
+    # Use a proper reverse proxy like nginx or traefik for SSL termination in production
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.keycloak.rule=Host(`keycloak.example.com`)"
+    #   - "traefik.http.routers.keycloak.entrypoints=websecure"
+    #   - "traefik.http.routers.keycloak.tls=true"
+    #   - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+
+# Ensure you review the Keycloak documentation for security best practices and configurations:
+# https://www.keycloak.org/docs/latest/server_installation/

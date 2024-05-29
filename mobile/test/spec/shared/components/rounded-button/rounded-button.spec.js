@@ -1,6 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
 import 'react-native';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import renderer from 'react-test-renderer';
 
 import RoundedButton from '../../../../../app/shared/components/rounded-button/rounded-button';
@@ -23,10 +26,9 @@ test('RoundedButton component with no content prop renders correctly', () => {
 test('onPress', () => {
   let i = 0;
   const onPress = () => i++;
-  const wrapperPress = shallow(<RoundedButton onPress={onPress} text="hi" />);
+  render(<RoundedButton onPress={onPress} text="hi" />);
 
-  expect(wrapperPress.prop('onPress')).toBe(onPress); // the component's onPress uses the right handler
   expect(i).toBe(0);
-  wrapperPress.simulate('press');
+  fireEvent.press(screen.getByText('HI'));
   expect(i).toBe(1);
 });

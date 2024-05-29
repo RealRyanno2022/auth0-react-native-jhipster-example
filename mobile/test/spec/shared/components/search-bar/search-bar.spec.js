@@ -1,6 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
 import 'react-native';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react-native';
 import renderer from 'react-test-renderer';
 
 import SearchBar from '../../../../../app/shared/components/search-bar/search-bar';
@@ -15,11 +18,7 @@ test('onSearch', async () => {
   const onCancel = () => {};
   const searchTerm = '';
   const onSubmitEditing = onSearch.bind(searchTerm);
-  const wrapperPress = shallow(<SearchBar onSearch={onSearch} onCancel={onCancel} searchTerm={searchTerm} />);
+  render(<SearchBar onSearch={onSearch} onCancel={onCancel} searchTerm={searchTerm} />);
 
-  // checks that the methods use the right handlers
-  expect(wrapperPress.findWhere((node) => node.prop('testID') === 'searchTextInput').prop('onChangeText')).toBe(onSearch); // uses the right handler
-  expect(JSON.stringify(wrapperPress.findWhere((node) => node.prop('testID') === 'searchTextInput').prop('onSubmitEditing'))).toEqual(
-    JSON.stringify(onSubmitEditing),
-  );
+  expect(JSON.stringify(screen.getByPlaceholderText('Search').props['onSubmitEditing'])).toEqual(JSON.stringify(onSubmitEditing));
 });

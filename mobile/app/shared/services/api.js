@@ -61,24 +61,6 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const createUser = (user) => api.post('api/users', user);
   const updateUser = (user) => api.put('api/users', user);
   const deleteUser = (userId) => api.delete('api/users/' + userId);
-
-  const getAlbum = (albumId) => api.get('api/albums/' + albumId);
-  const getAllAlbums = (options) => api.get('api/albums', options);
-  const createAlbum = (album) => api.post('api/albums', album);
-  const updateAlbum = (album) => api.put(`api/albums/${album.id}`, album);
-  const deleteAlbum = (albumId) => api.delete('api/albums/' + albumId);
-
-  const getPhoto = (photoId) => api.get('api/photos/' + photoId);
-  const getAllPhotos = (options) => api.get('api/photos', options);
-  const createPhoto = (photo) => api.post('api/photos', photo);
-  const updatePhoto = (photo) => api.put(`api/photos/${photo.id}`, photo);
-  const deletePhoto = (photoId) => api.delete('api/photos/' + photoId);
-
-  const getTag = (tagId) => api.get('api/tags/' + tagId);
-  const getAllTags = (options) => api.get('api/tags', options);
-  const createTag = (tag) => api.post('api/tags', tag);
-  const updateTag = (tag) => api.put(`api/tags/${tag.id}`, tag);
-  const deleteTag = (tagId) => api.delete('api/tags/' + tagId);
   // jhipster-react-native-api-method-needle
 
   // ------
@@ -100,24 +82,6 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getAllUsers,
     getUser,
     deleteUser,
-
-    createAlbum,
-    updateAlbum,
-    getAllAlbums,
-    getAlbum,
-    deleteAlbum,
-
-    createPhoto,
-    updatePhoto,
-    getAllPhotos,
-    getPhoto,
-    deletePhoto,
-
-    createTag,
-    updateTag,
-    getAllTags,
-    getTag,
-    deleteTag,
     // jhipster-react-native-api-export-needle
     setAuthToken,
     removeAuthToken,

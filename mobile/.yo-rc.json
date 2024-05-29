@@ -6,7 +6,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-react-native",
-        "version": "4.3.0"
+        "version": "4.4.0"
       }
     ],
     "buildTool": "maven",
@@ -38,7 +38,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-react-native",
-        "version": "4.3.0"
+        "version": "4.4.0"
       }
     ],
     "packageName": "com.auth0.flickr2",
@@ -63,5 +63,8 @@
     "useOkta": false,
     "websocket": false,
     "withAdminUi": true
+  },
+  "generator-jhipster-react-native": {
+    "reactNativeBlueprintVersion": "4.4.0"
   }
 }
